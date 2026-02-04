@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterTV Produções | Broadcast de Elite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Archivo:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8cc63e;
+            --dark: #3f4041;
+            --dark-gray: #4a4b4c;
+            --medium-gray: #5a5b5c;
+            --light-gray: #9a9b9c;
+            --white: #fefefe;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.03; pointer-events: none;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--white) 2px, var(--white) 4px);
+            animation: scan 8s linear infinite; z-index: 0;
+        }
+        @keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(40px); } }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 1.5rem 5%;
+            background: rgba(63, 64, 65, 0.95); backdrop-filter: blur(10px);
+            z-index: 1000; border-bottom: 1px solid rgba(140, 198, 62, 0.3);
+            transition: all 0.3s ease;
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1600px; margin: 0 auto; }
+        
+        .logo { height: 50px; display: flex; align-items: center; }
+        .logo img { height: 100%; width: auto; }
+        
+        .nav-container { display: flex; align-items: center; gap: 3rem; }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--white); text-decoration: none; font-weight: 600;
+            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+            position: relative; transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+            background: var(--primary); transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Language Switcher (White Buttons) */
+        .lang-switch {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+            padding: 5px 12px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .lang-btn:hover { opacity: 1; }
+        .lang-btn.active {
+            background: var(--white);
+            color: var(--dark);
+            opacity: 1;
+        }
+
+        /* Hero */
+        .hero {
+            position: relative; height: 100vh; display: flex;
+            align-items: center; justify-content: center; overflow: hidden;
+        }
+        .hero-content {
+            position: relative; z-index: 10; text-align: center;
+            max-width: 1200px; padding: 0 2rem; animation: fadeInUp 1s ease-out;
+        }
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.9; letter-spacing: 5px; margin-bottom: 1rem;
+            text-transform: uppercase; color: var(--white);
+            animation: slideIn 1s ease-out 0.2s both;
+        }
+        .hero .subtitle {
+            font-family: 'Oswald', sans-serif; font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300; letter-spacing: 3px; color: var(--primary);
+            text-transform: uppercase; margin-bottom: 2rem;
+            animation: slideIn 1s ease-out 0.4s both;
+        }
+        .cta-button {
+            display: inline-block; padding: 1.2rem 3rem; background: var(--primary);
+            color: var(--dark); text-decoration: none; font-weight: 700;
+            font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
+            border: 2px solid var(--primary); position: relative; overflow: hidden;
+            transition: all 0.3s; animation: fadeInUp 1s ease-out 0.8s both;
+        }
+        .cta-button:hover { color: var(--dark); border-color: var(--white); }
+        .hero::before {
+            content: ''; position: absolute; top: 0; right: -10%; width: 40%; height: 100%;
+            background: linear-gradient(135deg, transparent 40%, rgba(140, 198, 62, 0.1));
+            transform: skewX(-15deg);
+        }
+
+        /* General Sections */
+        section { position: relative; padding: 6rem 5%; max-width: 1600px; margin: 0 auto; }
+        .section-header { margin-bottom: 3rem; }
+        .section-label {
+            font-family: 'Oswald', sans-serif; font-size: 0.9rem; letter-spacing: 3px;
+            color: var(--primary); text-transform: uppercase; margin-bottom: 1rem; font-weight: 600;
+        }
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem);
+            letter-spacing: 3px; line-height: 1.1; text-transform: uppercase; color: var(--white);
+        }
+
+        /* Video */
+        .video-showcase { background: #2a2b2c; }
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            max-width: 100%; background: #000; border: 3px solid var(--primary);
+            box-shadow: 0 20px 60px rgba(140, 198, 62, 0.2);
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem;
+        }
+        .portfolio-item {
+            position: relative; aspect-ratio: 16/10; overflow: hidden;
+            background: var(--dark-gray); border: 1px solid var(--medium-gray);
+            cursor: pointer; transition: transform 0.4s, border-color 0.3s;
+        }
+        .portfolio-item:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .portfolio-img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;
+        }
+        .portfolio-item:hover .portfolio-img { transform: scale(1.05); }
+
+        .portfolio-info {
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; z-index: 2;
+            background: linear-gradient(to top, rgba(30, 30, 30, 0.95) 0%, rgba(63, 64, 65, 0.5) 100%);
+            backdrop-filter: blur(3px); border-top: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(0); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .portfolio-item:hover .portfolio-info { transform: translateY(100%); }
+        .portfolio-info h3 {
+            font-family: 'Oswald', sans-serif; font-size: 1.8rem; margin-bottom: 0.5rem;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .portfolio-info p { color: #e0e0e0; font-size: 0.95rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        .portfolio-tag {
+            display: inline-block; margin-top: 1rem; padding: 0.4rem 1rem;
+            background: rgba(140, 198, 62, 0.9); color: var(--dark);
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Secondary Portfolio */
+        .secondary-portfolio { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--medium-gray); }
+        .secondary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .secondary-item {
+            position: relative; aspect-ratio: 16/9; overflow: hidden; border: 1px solid var(--medium-gray);
+        }
+        .secondary-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.7);
+        }
+        .secondary-item:hover img { transform: scale(1.1); filter: brightness(1); }
+        .secondary-info {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: rgba(0,0,0,0.8);
+        }
+        .secondary-info h4 {
+            font-family: 'Oswald', sans-serif; font-size: 1rem; color: var(--white); text-transform: uppercase; margin-bottom: 0.2rem;
+        }
+        .secondary-info span { font-size: 0.75rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Equipments */
+        .equipments-section { background: #353637; }
+        .eq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; }
+        .eq-category h3 {
+            font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: var(--primary);
+            border-bottom: 1px solid var(--medium-gray); padding-bottom: 0.5rem;
+            margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .eq-list { list-style: none; }
+        .eq-list li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.8rem;
+            color: var(--light-gray); font-size: 0.95rem; border-bottom: 1px dotted #4a4b4c; padding-bottom: 0.5rem;
+        }
+        .eq-list li::before { content: '•'; position: absolute; left: 0; color: var(--primary); }
+        .eq-list li strong { color: var(--white); font-weight: 600; }
+
+        /* Services */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .service-card {
+            background: var(--dark-gray); border: 1px solid var(--medium-gray); padding: 2.5rem;
+            position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s;
+        }
+        .service-card:hover { border-color: var(--primary); transform: translateX(10px); }
+        .service-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+        .service-card h3 {
+            font-family: 'Oswald', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;
+            letter-spacing: 2px; text-transform: uppercase; color: var(--white);
+        }
+        .service-card p { color: var(--light-gray); line-height: 1.8; }
+
+        /* CLIENTS SECTION (NEW) */
+        .clients-section { background: var(--dark-gray); border-top: 1px solid var(--medium-gray); }
+        .clients-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4rem;
+        }
+        .client-logo-wrapper {
+            display: flex; flex-direction: column; align-items: center; gap: 1rem;
+        }
+        .client-logo {
+            height: 60px; /* Altura fixa para alinhar */
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            filter: grayscale(100%) opacity(0.6);
+            transition: all 0.4s ease;
+        }
+        /* Efeito Hover na Logo */
+        .client-logo:hover {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.1);
+        }
+        /* Nome do cliente (opcional, escondido visualmente ou apenas alt text, mas pedido foi logo em cima do nome. O nome será a imagem em si na maioria dos casos, mas coloquei a imagem como destaque). */
+        
+        /* Contact */
+        .contact { background: linear-gradient(135deg, var(--dark-gray) 0%, var(--dark) 100%); }
+        .contact-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .contact-info { display: flex; justify-content: center; gap: 4rem; margin-top: 3rem; flex-wrap: wrap; }
+        .contact-item-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .contact-label {
+            display: inline-block; margin-top: 3rem; font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem; color: var(--white); text-transform: uppercase;
+            letter-spacing: 2px; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem;
+        }
+
+        footer { background: var(--dark); padding: 3rem 5%; border-top: 1px solid var(--medium-gray); text-align: center; }
+        
+        /* Utility */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 5%; }
+            .hero h1 { font-size: 3.5rem; }
+            .clients-grid { gap: 2rem; }
+            .client-logo { height: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo-mastertv.png" alt="MasterTV" onerror="this.style.display='none'; this.parentElement.innerHTML='<h2 style=\'color:white;font-family:Bebas Neue\'>MASTER<span style=\'color:#8cc63e\'>TV</span></h2>'">
+            </div>
+            
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#video" data-key="nav_video">Vídeo</a></li>
+                    <li><a href="#portfolio" data-key="nav_portfolio">Portfolio</a></li>
+                    <li><a href="#equipamentos" data-key="nav_equip">Equipamentos</a></li>
+                    <li><a href="#servicos" data-key="nav_services">Serviços</a></li>
+                    <li><a href="#clientes" data-key="nav_clients">Clientes</a></li>
+                    <li><a href="#contato" data-key="nav_contact">Contato</a></li>
+                </ul>
+                
+                <div class="lang-switch">
+                    <button class="lang-btn active" onclick="setLang('pt')" title="Português">PT</button>
+                    <button class="lang-btn" onclick="setLang('en')" title="English">EN</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-key="hero_title">BROADCAST<br>DE ELITE</h1>
+            <div class="subtitle" data-key="hero_subtitle">Produção & Transmissão Esportiva</div>
+            <p style="font-size: 1.1rem; color: var(--light-gray); max-width: 700px; margin: 0 auto 3rem;" data-key="hero_desc">
+                Especialistas em coberturas ao vivo dos maiores eventos esportivos do Brasil e da América Latina.
+            </p>
+            <a href="#video" class="cta-button" data-key="hero_cta">Ver Nosso Trabalho</a>
+        </div>
+    </section>
+
+    <section id="video" class="video-showcase">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="section-header fade-in" style="text-align: center; margin-bottom: 3rem;">
+                <div class="section-label" data-key="video_label">Nosso Trabalho em Ação</div>
+                <h2 class="section-title" data-key="video_title">Veja a Qualidade MasterTV</h2>
+            </div>
+            <div class="video-container fade-in">
+                <iframe src="https://www.youtube.com/embed/z5uTYbDVRj8?start=16&rel=0" title="Showreel" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="section-header fade-in">
+            <div class="section-label" data-key="port_label">Projetos Principais</div>
+            <h2 class="section-title" data-key="port_title">Grandes Coberturas</h2>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&h=500&fit=crop" class="portfolio-img">
+                <div class="portfolio-info">
+                    <h3>Fórmula 1</h3>
+                    <p data-key="p_f1">O auge do automobilismo mundial</p>
+                    <span class="portfolio-tag" data-key="tag_auto">Automobilismo</span>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1541443131876-44b03de101c5?w=800&h=500&fit=crop" class="portfolio-img">
+                <div class="portfolio-info">
+                    <h3>Stock Car</h3>
+                    <p data-key="p_stock">A principal categoria brasileira</p>
+                    <span class="portfolio-tag" data-key="tag_auto">Automobilismo</span>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=500&fit=crop" class="portfolio-img">
+                <div class="portfolio-info">
+                    <h3>Copa Truck</h3>
+                    <p data-key="p_truck">Força bruta nas pistas</p>
+                    <span class="portfolio-tag" data-key="tag_auto">Automobilismo</span>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=500&fit=crop" class="portfolio-img">
+                <div class="portfolio-info">
+                    <h3>WEC 6h de SP</h3>
+                    <p data-key="p_wec">World Endurance Championship</p>
+                    <span class="portfolio-tag" data-key="tag_auto">Automobilismo</span>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop" class="portfolio-img">
+                <div class="portfolio-info">
+                    <h3>Copa Libertadores</h3>
+                    <p data-key="p_liberta">A glória eterna do futebol</p>
+                    <span class="portfolio-tag" data-key="tag_soccer">Futebol</span>
+                </div>
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=800&h=500&fit=crop" class="portfolio-img">
+                <div class="portfolio-info">
+                    <h3>Copa América</h3>
+                    <p data-key="p_america">Seleções da América do Sul</p>
+                    <span class="portfolio-tag" data-key="tag_soccer">Futebol</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="secondary-portfolio fade-in">
+            <h3 class="section-label" style="margin-bottom: 2rem;" data-key="sec_label">Outras Coberturas</h3>
+            <div class="secondary-grid">
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop" alt="Porsche Cup">
+                    <div class="secondary-info"><h4>Porsche Cup</h4><span data-key="tag_auto">Automobilismo</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1558981408-db0ecd8a1ee4?w=400&h=250&fit=crop" alt="Superbike">
+                    <div class="secondary-info"><h4>Superbike</h4><span data-key="tag_moto">Motovelocidade</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1558980664-769d59546b3d?w=400&h=250&fit=crop" alt="Moto 1000 GP">
+                    <div class="secondary-info"><h4>Moto 1000 GP</h4><span data-key="tag_moto">Motovelocidade</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?w=400&h=250&fit=crop" alt="Kart">
+                    <div class="secondary-info"><h4>Camp. Brasileiro de Kart</h4><span data-key="tag_kart">Kartismo</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=400&h=250&fit=crop" alt="MTB">
+                    <div class="secondary-info"><h4>Mercedes UTC MTB</h4><span>Red Bull</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1518609571773-39b7d303a87b?w=400&h=250&fit=crop" alt="Motocross">
+                    <div class="secondary-info"><h4>Mundial de Motocross</h4><span>Monster Energy</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1547447134-cd3f5c716030?w=400&h=250&fit=crop" alt="Skate">
+                    <div class="secondary-info"><h4>STU - Skate</h4><span data-key="tag_skate">Skateboarding</span></div>
+                </div>
+                <div class="secondary-item">
+                    <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=400&h=250&fit=crop" alt="Surf">
+                    <div class="secondary-info"><h4>WSL - Surf</h4><span data-key="tag_surf">World Surf League</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipamentos" class="equipments-section">
+        <div class="section-header fade-in">
+            <div class="section-label" data-key="eq_label">Tecnologia</div>
+            <h2 class="section-title" data-key="eq_title">Infraestrutura Técnica</h2>
+            <p style="color:var(--light-gray); max-width:800px; margin-top:1rem;" data-key="eq_desc">
+                Nossa unidade móvel (HDDO) está equipada com o que há de mais moderno na indústria broadcast mundial.
+            </p>
+        </div>
+
+        <div class="eq-grid fade-in">
+            <div class="eq-category">
+                <h3 data-key="cat_prod">Produção & Switcher</h3>
+                <ul class="eq-list">
+                    <li><strong>Sony MVS-7000A Switcher</strong>: 80 inputs, 48 outputs, 4 M/E</li>
+                    <li><strong>Sony Remote Panel</strong>: 02 Panels (32 XPT, 3 bank)</li>
+                    <li><strong>DME DVE</strong>: 01 Sony (4 Channels)</li>
+                    <li><strong>Matrix</strong>: Miranda NV 9605 144x144 HDSD-3G</li>
+                    <li><strong>Frame Sync</strong>: 10x FOR-A FA-9500 / 4x Blackmagic Teranex 2D</li>
+                </ul>
+            </div>
+
+            <div class="eq-category">
+                <h3 data-key="cat_cam">Câmeras</h3>
+                <ul class="eq-list">
+                    <li><strong>18x Sony HXCU-2500</strong>: Full CCU Cameras</li>
+                    <li><strong>02x Sony HXCU-3300</strong>: Super Slow Motion</li>
+                    <li><strong>18x Sony HDC-2500</strong></li>
+                    <li><strong>02x Sony HDC 3300R</strong>: Super Slow</li>
+                    <li><strong>02x Sony XDCAM PDW-700</strong></li>
+                    <li><strong>RCP</strong>: 20x Sony 1530</li>
+                </ul>
+            </div>
+
+            <div class="eq-category">
+                <h3 data-key="cat_lens">Lentes</h3>
+                <ul class="eq-list">
+                    <li><strong>02x Fujinon 88x</strong> Zoom Lens</li>
+                    <li><strong>02x Fujinon 50x</strong> Zoom Lens</li>
+                    <li><strong>05x Fujinon 42x</strong> Zoom Lens</li>
+                    <li><strong>12x Fujinon 22x</strong> Zoom Lens</li>
+                    <li><strong>04x Fujinon 12x4.7</strong> Wide Angle</li>
+                    <li><strong>01x Canon 12x4.7</strong> Wide Angle</li>
+                </ul>
+            </div>
+
+            <div class="eq-category">
+                <h3 data-key="cat_replay">Replay & Gravação</h3>
+                <ul class="eq-list">
+                    <li><strong>04x EVS XT3 HD</strong>: 8 Channel Server (6 in, 2 out)</li>
+                    <li><strong>01x EVS NANO HD</strong>: 6 Channel</li>
+                    <li><strong>01x Sports Net HUB</strong>: For EVS LSM & Spot Box</li>
+                    <li><strong>04x AJA KI PRO</strong> Recorder</li>
+                    <li><strong>02x Sony XDCAM VTR</strong> (PDW-1600)</li>
+                </ul>
+            </div>
+
+            <div class="eq-category">
+                <h3 data-key="cat_audio">Áudio</h3>
+                <ul class="eq-list">
+                    <li><strong>Studer Vista 5 Digital Console</strong>: 32 faders, DSP for 108 stereo & 104 mono</li>
+                    <li><strong>Yamaha DM1000</strong>: 24 faders, 16 Mic/Line</li>
+                    <li><strong>Monitoring</strong>: 5.1 Dolby/Neural Processing</li>
+                    <li><strong>Genelec</strong>: 10x Monitors (Production/Sound Booth)</li>
+                    <li><strong>Dolby E Encoders</strong>: 02 units</li>
+                </ul>
+            </div>
+
+            <div class="eq-category">
+                <h3 data-key="cat_comm">Comunicação & Suporte</h3>
+                <ul class="eq-list">
+                    <li><strong>Intercom Matrix</strong>: Telex ADAM 128x128</li>
+                    <li><strong>Panels</strong>: 16x Telex KP-12 / 5x KP-32</li>
+                    <li><strong>Wireless</strong>: BTR 800 Double Wireless / Clearcom AB100</li>
+                    <li><strong>Multiview</strong>: 05x Miranda Kaleido X-16</li>
+                    <li><strong>Mobile Unit</strong>: 42' Long x 13' High (72,500 kg)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos">
+        <div class="section-header fade-in">
+            <h2 class="section-title" data-key="serv_title">Nossos Serviços</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">📹</div>
+                <h3 data-key="serv_1_title">Transmissão ao Vivo</h3>
+                <p data-key="serv_1_desc">Broadcast profissional HD com replay instantâneo.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">🎬</div>
+                <h3 data-key="serv_2_title">Produção</h3>
+                <p data-key="serv_2_desc">Criação de conteúdo premium, highlights e documentários.</p>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">⚙️</div>
+                <h3 data-key="serv_3_title">Infraestrutura</h3>
+                <p data-key="serv_3_desc">Equipamentos de ponta, slow motion, gruas e drones.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="clientes" class="clients-section">
+        <div class="section-header fade-in" style="text-align: center;">
+            <div class="section-label" data-key="clients_label">Parceiros</div>
+            <h2 class="section-title" data-key="clients_title">Nossos Clientes</h2>
+        </div>
+        <div class="clients-grid fade-in">
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/6/66/Logo_do_SBT_2014.svg/1024px-Logo_do_SBT_2014.svg.png" alt="SBT" class="client-logo">
+            </div>
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/TV_Globo_logo_2022.svg/800px-TV_Globo_logo_2022.svg.png" alt="TV Globo" class="client-logo">
+            </div>
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/SporTV_Logo_2021.svg/2560px-SporTV_Logo_2021.svg.png" alt="SporTV" class="client-logo">
+            </div>
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBull.svg/1200px-RedBull.svg.png" alt="Red Bull" class="client-logo">
+            </div>
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/ESPN_logo.svg/2560px-ESPN_logo.svg.png" alt="ESPN" class="client-logo">
+            </div>
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/pt/thumb/2/29/Rede_Bandeirantes_2018_horizontal.png/1200px-Rede_Bandeirantes_2018_horizontal.png" alt="Band" class="client-logo">
+            </div>
+            <div class="client-logo-wrapper">
+                <img src="https://upload.wikimedia.org/wikipedia/fr/thumb/3/36/WEC_logo_2012.svg/1200px-WEC_logo_2012.svg.png" alt="WEC" class="client-logo" style="filter: grayscale(100%) invert(1) brightness(2);">
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="contact">
+        <div class="contact-content">
+            <h2 class="section-title fade-in" data-key="contact_title">Vamos Trabalhar Juntos</h2>
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <div class="contact-item-icon">📧</div>
+                    <h4 data-key="contact_email">Email</h4>
+                    <p>jorgeguirado@catve.com.br</p>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-item-icon">📱</div>
+                    <h4 data-key="contact_phone">Telefone</h4>
+                    <p>+55 (45) 3301-2626</p>
+                </div>
+            </div>
+            
+            <div class="fade-in">
+                <div class="contact-label" data-key="contact_label">Contatos</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <p data-key="footer_copy">&copy; 2026 MasterTV Produções. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // TRADUÇÕES
+        const translations = {
+            'pt': {
+                'nav_video': 'Vídeo', 'nav_portfolio': 'Portfolio', 'nav_equip': 'Equipamentos', 'nav_services': 'Serviços', 'nav_clients': 'Clientes', 'nav_contact': 'Contato',
+                'hero_title': 'BROADCAST<br>DE ELITE',
+                'hero_subtitle': 'Produção & Transmissão Esportiva',
+                'hero_desc': 'Especialistas em coberturas ao vivo dos maiores eventos esportivos do Brasil e da América Latina.',
+                'hero_cta': 'Ver Nosso Trabalho',
+                'video_label': 'Nosso Trabalho em Ação',
+                'video_title': 'Veja a Qualidade MasterTV',
+                'port_label': 'Projetos Principais',
+                'port_title': 'Grandes Coberturas',
+                'p_f1': 'O auge do automobilismo mundial',
+                'p_stock': 'A principal categoria brasileira',
+                'p_truck': 'Força bruta nas pistas',
+                'p_wec': 'World Endurance Championship',
+                'p_liberta': 'A glória eterna do futebol',
+                'p_america': 'Seleções da América do Sul',
+                'tag_auto': 'Automobilismo', 'tag_soccer': 'Futebol', 'tag_moto': 'Motovelocidade', 'tag_kart': 'Kartismo', 'tag_skate': 'Skateboarding', 'tag_surf': 'World Surf League',
+                'sec_label': 'Outras Coberturas',
+                'eq_label': 'Tecnologia',
+                'eq_title': 'Infraestrutura Técnica',
+                'eq_desc': 'Nossa unidade móvel (HDDO) está equipada com o que há de mais moderno na indústria broadcast mundial.',
+                'cat_prod': 'Produção & Switcher',
+                'cat_cam': 'Câmeras',
+                'cat_lens': 'Lentes',
+                'cat_replay': 'Replay & Gravação',
+                'cat_audio': 'Áudio',
+                'cat_comm': 'Comunicação & Suporte',
+                'serv_title': 'Nossos Serviços',
+                'serv_1_title': 'Transmissão ao Vivo', 'serv_1_desc': 'Broadcast profissional HD com replay instantâneo.',
+                'serv_2_title': 'Produção', 'serv_2_desc': 'Criação de conteúdo premium, highlights e documentários.',
+                'serv_3_title': 'Infraestrutura', 'serv_3_desc': 'Equipamentos de ponta, slow motion, gruas e drones.',
+                'clients_label': 'Parceiros', 'clients_title': 'Nossos Clientes',
+                'contact_title': 'Vamos Trabalhar Juntos',
+                'contact_email': 'Email', 'contact_phone': 'Telefone',
+                'contact_label': 'Contatos',
+                'footer_copy': '&copy; 2026 MasterTV Produções. Todos os direitos reservados.'
+            },
+            'en': {
+                'nav_video': 'Video', 'nav_portfolio': 'Portfolio', 'nav_equip': 'Equipment', 'nav_services': 'Services', 'nav_clients': 'Clients', 'nav_contact': 'Contact',
+                'hero_title': 'ELITE<br>BROADCAST',
+                'hero_subtitle': 'Sports Production & Broadcast',
+                'hero_desc': 'Specialists in live coverage of major sporting events in Brazil and Latin America.',
+                'hero_cta': 'View Our Work',
+                'video_label': 'Our Work in Action',
+                'video_title': 'See MasterTV Quality',
+                'port_label': 'Main Projects',
+                'port_title': 'Major Coverage',
+                'p_f1': 'The pinnacle of world motorsport',
+                'p_stock': 'The main Brazilian category',
+                'p_truck': 'Raw power on the track',
+                'p_wec': 'World Endurance Championship',
+                'p_liberta': 'Eternal football glory',
+                'p_america': 'South American national teams',
+                'tag_auto': 'Motorsport', 'tag_soccer': 'Football', 'tag_moto': 'Motorcycling', 'tag_kart': 'Karting', 'tag_skate': 'Skateboarding', 'tag_surf': 'World Surf League',
+                'sec_label': 'Other Coverage',
+                'eq_label': 'Technology',
+                'eq_title': 'Technical Infrastructure',
+                'eq_desc': 'Our mobile unit (HDDO) is equipped with the most modern technology in the global broadcast industry.',
+                'cat_prod': 'Production & Switcher',
+                'cat_cam': 'Cameras',
+                'cat_lens': 'Lenses',
+                'cat_replay': 'Replay & Recording',
+                'cat_audio': 'Audio',
+                'cat_comm': 'Communication & Support',
+                'serv_title': 'Our Services',
+                'serv_1_title': 'Live Broadcast', 'serv_1_desc': 'Professional HD broadcast with instant replay.',
+                'serv_2_title': 'Production', 'serv_2_desc': 'Premium content creation, highlights, and documentaries.',
+                'serv_3_title': 'Infrastructure', 'serv_3_desc': 'High-end equipment, slow motion, cranes, and drones.',
+                'clients_label': 'Partners', 'clients_title': 'Our Clients',
+                'contact_title': 'Let\'s Work Together',
+                'contact_email': 'Email', 'contact_phone': 'Phone',
+                'contact_label': 'Contact Us',
+                'footer_copy': '&copy; 2026 MasterTV Productions. All rights reserved.'
+            }
+        };
+
+        function setLang(lang) {
+            // Update Text
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key]; // innerHTML allows <br> tags
+                }
+            });
+
+            // Update Buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+
+            // Set HTML lang attribute
+            document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en-US';
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(63, 64, 65, 0.98)';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.3)';
+            } else {
+                header.style.background = 'rgba(63, 64, 65, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
